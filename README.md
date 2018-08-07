@@ -12,7 +12,7 @@
 
 
 ### 微信小程序
-[小程序中如何使用类似各大前端框架中的 filter 微信小程序](https://github.com/jsjzh/blog/issues/2)
+[小程序中如何使用类似各大前端框架中的 filter](https://github.com/jsjzh/blog/issues/2)
 
 
 ## 后端
