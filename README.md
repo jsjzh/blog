@@ -23,3 +23,14 @@
 
 
 ## 个人档案
+17年毕业 95大叔一枚
+
+热爱健身，热爱代码
+
+代码如人生，我甘之如饴
+
+[掘金](https://juejin.im/user/59b41d21f265da065b6682f7/posts)
+
+[简书](https://www.jianshu.com/u/84ccf14285db)
+
+[segmentfault](https://segmentfault.com/u/kusanzhongzou/articles)
