@@ -21,6 +21,8 @@
 ## 服务端
 [docker 应用系列（一）--- 一步步搭建虚拟机 docker 环境 附有 vue-cli + nginx 应用](https://github.com/jsjzh/blog/issues/4)
 
+## 终端
+[WINDOWS --- 常用软件整理](https://github.com/jsjzh/blog/issues/5)
 
 ## 个人档案
 17年毕业，95大叔一枚
