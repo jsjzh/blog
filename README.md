@@ -32,10 +32,24 @@
 
 代码如人生，我甘之如饴
 
-[掘金](https://juejin.im/user/59b41d21f265da065b6682f7/posts)
+### 代码在这里
 
-[简书](https://www.jianshu.com/u/84ccf14285db)
+[掘金](https://juejin.im/user/59b41d21f265da065b6682f7/posts)
 
 [segmentfault](https://segmentfault.com/u/kusanzhongzou/articles)
 
 [CSDN](https://blog.csdn.net/weixin_41917948)
+
+### 语录在这里
+
+[简书](https://www.jianshu.com/u/84ccf14285db)
+
+## 页脚
+
+代码即人生，我甘之如饴。
+
+欢迎小伙伴们直接加我，拉你进群一起学习前端呀，记得备注一下你来自哪里哦。
+
+![wechat](https://i.loli.net/2019/03/11/5c867208cc9c0.jpg)
+
+![wechat](https://i.loli.net/2019/03/11/5c86720fbab10.jpg)
