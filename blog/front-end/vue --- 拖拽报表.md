@@ -1,6 +1,6 @@
 ![Vue](https://user-gold-cdn.xitu.io/2018/5/23/16388a8621702f70?w=400&h=400&f=png&s=3451)
 
-# `vue` 结合 `echart` 原生 `html5` 实现拖拽排版报表系统
+# `Vue` 结合 `echarts` 原生 `html5` 实现拖拽排版报表系统
 
 ## 小剧场
 
