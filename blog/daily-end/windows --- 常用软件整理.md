@@ -1,6 +1,6 @@
 - WINDOWS
   - 系统
-    - WIN10 1803 64位 家庭版
+    - WIN10 1803 64 位 家庭版
       - https://msdn.itellyou.cn/
   - 日常软件
     - 360 安全卫士

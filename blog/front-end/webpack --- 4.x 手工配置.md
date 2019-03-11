@@ -4,26 +4,30 @@
 > bundle.js 指的是 webpack 打包后的文件。
 
 ## 小剧场
+
 项目经理：我们要开始一个新的项目，裤裆你来负责项目构建吧。  
-我：好的没问题，经理请稍等。  
+我：好的没问题，经理请稍等。
+
 ```npm
 npm install vue-cli -g
 vue init webpack -y new-project-name
 ```
+
 我：好了，我们开始吧。  
-项目经理：接下来呢？  
+项目经理：接下来呢？
 
 ![黑人问号脸](https://user-gold-cdn.xitu.io/2018/7/22/164c00814127bdae?w=440&h=252&f=jpeg&s=17614)
 
-我：接下来没了，可以开发了。   
+我：接下来没了，可以开发了。  
 项目经理：裤裆啊，速度快是好事，但是我看你每次都是那么几步，能不能来点不一样的，你看那些面试官，面试手写一个 `webpack 4.x` 的配置，你知道怎么写么？  
 我：。。。。。。  
 项目经理：（拂袖而去，远远地听到空中传来一句话）年轻人，切勿急躁，稳中求胜啊。  
 我：项目急的时候你不是这么说的。  
 项目经理：裤裆你说啥？  
-我：经理你说得对。  
+我：经理你说得对。
 
 ## 前言
+
 在我们在面对一个新的项目的时候，网上的大量优秀的模板可以使我们少走很多弯路，可以把主要的精力放在业务上，等到后期项目庞大了，业务复杂了的时候再去做一些优化，这其中包括项目打包速度优化，项目打包体积优化（也可以看做是首屏加载优化），等等，但是，身为一个爱折腾的程序猿，面对这些模板，是的，我很好奇！
 
 ![~~我很好骑~~](https://user-gold-cdn.xitu.io/2018/7/22/164c00a4dc82038e?w=750&h=422&f=jpeg&s=35529)
@@ -38,19 +42,25 @@ npm start
 ```
 
 ## `webpack 4.x` 的那些新玩意儿
+
 在最新的 [官方文档](https://webpack.js.org/configuration/) 中，有两个新的配置项，`mode` 和 `optimization`，我们就从这两个入手，看看 `webpack .4x` 有什么新东西。
 
 下面会介绍因为你配置了不同的 `mode` 之后，你的代码会受到的不同对待。
 
 ### `mode` 是个啥
+
 这个配置项是区分 `webpack 4.x` 和其他版本最方便的手段，`webpack 4.x` 给我们提供了两个模式用作开发和生产的模式，这两个模式下 `webpack` 默默给我们开启了不少优化手段，当然，这些优化手段我们也是可以配置的，就是在 `optimization` 这个配置项中，我们也可以自己增加 `optimization` 选项对项目进行更细的优化。
+
 ```
 production | development | none
 ```
+
 下面我会对 `mode` 的两个值 `production` 和 `development` 进行比较详细的说明，看看 `webpack` 到底偷偷给我们开启了什么优化。
 
 #### `prod` 和 `dev` 相同的优化
+
 `mode: production || development` 时，`webpack` 都会开启的优化。
+
 ```json
 {
   "mode": "production" || "development",
@@ -68,7 +78,9 @@ production | development | none
 ```
 
 #### `prod` 和 `dev` 不同的优化
+
 `mode: production` 时，`webpack` 开启的优化。
+
 ```json
 {
   "mode": "production",
@@ -86,12 +98,14 @@ production | development | none
   },
   // 性能相关配置
   "performance": {
-    "hints": "error",
+    "hints": "error"
     // ...
   }
 }
 ```
+
 `mode: development` 时，`webpack` 开启的优化。
+
 ```json
 {
   "mode": "development",
@@ -122,21 +136,25 @@ production | development | none
     // 取代了曾经的 NamedModulesPlugin 插件。
     "namedModules": true,
     // 给 chunk 更有意义更方便调试的名称。
-    "namedChunks": true,
+    "namedChunks": true
   }
 }
 ```
 
 ## `webpack 4.x` 基础版开发环境详细配置
+
 基础版拥有 `npm start` 之后 打开一个新的网页，并且更改 `js` 会自动更新的功能，不包含对 `ES6` 语法的转义以及 `css` 打包，`image` 图片转为 `dataURL` 的功能。
 
 先来一套组合拳，创建一个项目文件夹，并初始化项目。
+
 ```
 md my-webpack-template
 cd my-webpack-template
 npm init -y
 ```
+
 接着可以参考我的目录结构（列出主要的文件，只针对 `dev` 环境）。
+
 ```
 +---my-webpack-template
 |       index.html
@@ -152,38 +170,55 @@ npm init -y
 +---src
 |       index.js
 ```
+
 安装所需依赖。
 
 `webpack` 和 `webpack-cli` 曾经是在一起的，在 `4.x` 版本中进行了拆分，所以如果不好好同时安装他们俩是不行的哦。
+
 > 不推荐全局安装 webpack，这会导致命令行运行 webpack 的时候锁定版本。
+
 ```
 npm install webpack webpack-cli -D
 ```
+
 `webpack-dev-server` 是一个专门用于开发环境使用的集成了众多功能的环境，基于 `express`，拥有即时编译代码（`webapck-dev-middleware`），热更新（`webpack-hot-middleware`），自动打开浏览器（`opn`），对 `HTML5` 中 `history` 做特殊处理（`connect-history-api-fallback`）等等功能。
+
 > 对于开发环境，即时编译的代码不会存储在硬盘中而是在内存中，这是由 webapck-dev-middleware 完成的功能。
+
 ```
 npm install webpack-dev-server -D
 ```
+
 用于合并 `webpack` 配置的，一般我们会把 `webpack` 的 `base` 配置和 `dev` 配置 和 `prod` 配置分开写，用这个工具就可以很方便的合并 `base` 和 `dev` 的配置。
+
 ```
 npm install webpack-merge -D
 ```
+
 一个用于处理打包这个进程的插件，可以清除打包时候残留的控制台信息，并且可以在控制台打印出打包成功之后的文字提示，当然，对于打包错误之后的回调也是有的。
+
 ```
 npm install friendly-errors-webpack-plugin -D
 ```
+
 这个相对来说各位看官应该用的很多了吧，用于生成一个 `html` 文件，并且可以在底部注入通过 `webpack` 打包好的 `bundle.js` 文件。
+
 ```
 npm install html-webpack-plugin -D
 ```
+
 一个寻找可用端口的工具，当你配置的端口被占用时，这个工具会自动寻找一个可用的端口。
+
 ```
 npm install portfinder -D
 ```
 
 ### 配置 `package.json` 中的运行脚本
+
 接着，安装完了依赖我们需要配置 `npm` 运行时候的脚本了。
+
 > 当你在命令行直接输入 `webpack` 报错的，并且确信自己已经安装了 `webpack` 的时候，试试直接配置 `package.json` 中的 `scripts`，说不定你安装的是项目中的 `webpack`，而 `package.json` 中运行的脚本将优先该项目的环境。
+
 ```json
 "scripts": {
   "dev": "webpack-dev-server --inline --progress --config build/build-server.js",
@@ -192,7 +227,9 @@ npm install portfinder -D
 ```
 
 ### `build/webpack.base.conf.js` 配置详解
+
 先来配置 `webpack` 基础的配置，这里的配置 `prod` 和 `dev` 相同。
+
 ```javascript
 // 将一些配置写在 config/index.js 中，方便直接获取
 var config = require("../config");
@@ -220,6 +257,7 @@ module.exports = {
 ```
 
 ### `build/webpack.dev.conf.js` 配置详解
+
 ```javascript
 // 将一些配置写在 config/index.js 中，方便直接获取
 var config = require("../config");
@@ -332,6 +370,7 @@ module.exports = merge(webpackBaseConfig，{
 ```
 
 ### `build/build-server.js` 配置详解
+
 ```javascript
 // 更友好的提示插件
 var FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
@@ -367,14 +406,15 @@ module.exports = new Promise((resolve，reject) => {
 ```
 
 ### 编译出错了？看看这里
-> 如果你发现直接在控制台执行 `webpack` 报错了，但是你确实执行了 `npm install`，那是因为你没有安装全局的 `webpack。`  
+
+> 如果你发现直接在控制台执行 `webpack` 报错了，但是你确实执行了 `npm install`，那是因为你没有安装全局的 `webpack。`
 
 - 可以执行 `.\node_modules\.bin\webpack --config webpack.config.js`
   - 调用该项目 `node_modules` 下的 `webpack`
 - 使用 `package.json` 配置让 `npm` 去找该项目中的 `webpack`
   - `package.json > scripts.build: webapck`
 
-> `DeprecationWarning: Tapable.plugin is deprecated. Use new API on '.hooks' instead`  
+> `DeprecationWarning: Tapable.plugin is deprecated. Use new API on '.hooks' instead`
 
 这个错误会发生在你使用的插件没有针对 webpack 4.x 升级。
 这个时候只能去 `github` 提 `issue` 或者换一个 `plugin` 了。
@@ -382,6 +422,7 @@ module.exports = new Promise((resolve，reject) => {
 > 还发现了其他的错？请直接私信我，或者在评论中留言。
 
 ## 后语
+
 希望自己所做的一些微小的事情可以帮助大家在漫漫前端路中更上一层楼，另外，周末了不要太沉迷于敲代码，多出去走走，散散步，运动运动，给自己的一周充实的大脑放个空。
 
 如果大家觉得我哪里写的不对，请不要犹豫，直接 diss 我 =3=
@@ -393,6 +434,7 @@ module.exports = new Promise((resolve，reject) => {
 > 向前看就是未来，向后看就是过去，从中取一段下来就是故事，而这只不过是那样的故事中很小的一部分而已。--- 灰色的果实
 
 ## 大纲
+
 - `webpack 4.x` 的那些新玩意儿（DONE）
   - `mode`
   - `optimization`

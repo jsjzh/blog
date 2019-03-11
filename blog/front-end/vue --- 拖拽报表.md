@@ -1,4 +1,4 @@
-## prototype 详解
+## 标题
 
 ## 前言
 
@@ -7,16 +7,6 @@
 ### 目录
 
 ## 正文
-
-### constructor
-
-### prototype
-
-### \_\_proto\_\_
-
-### 先有 Function 还是先有 Object
-
-### 实例
 
 ## 后语
 
