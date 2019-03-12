@@ -6,6 +6,8 @@
 
 [Vue 技巧系列（一）--- 巧用 Vue.mixin 对状态码进行统一过滤](https://github.com/jsjzh/blog/issues/1)
 
+[Vue 结合 echarts 原生 html5 实现拖拽排版报表系统](https://github.com/jsjzh/blog/issues/6)
+
 ### webpack
 
 [比较详细的 手工配置 webpack 4.x --- 基础开发环境](https://github.com/jsjzh/blog/issues/3)
