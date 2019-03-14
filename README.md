@@ -18,7 +18,7 @@
 
 ## Node
 
-[tesseract-OCR 图像识别 node 插件 node-tesr](https://github.com/jsjzh/blog/issues/8)
+[tesseract-OCR 图像识别 node 插件 node-tesr](https://github.com/jsjzh/blog/issues/7)
 
 ## 后端
 
