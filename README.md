@@ -16,6 +16,10 @@
 
 [小程序中如何使用类似各大前端框架中的 filter](https://github.com/jsjzh/blog/issues/2)
 
+## Node
+
+[tesseract-OCR 图像识别 node 插件 node-tesr](https://github.com/jsjzh/blog/issues/8)
+
 ## 后端
 
 ## 服务端
