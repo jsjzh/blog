@@ -4,17 +4,23 @@
 
 ### `innerWidth` and `innerHeight`
 
+兼容性良好
+
 表示 `window` 窗体的内部宽度，不包括用户界面元素，比如收藏栏、地址栏等等。
 
 当浏览器大小发生改变的时候这些数值也会变化。
 
 ### `outerWidth` and `outerHeight`
 
+兼容性良好
+
 表示 `window` 窗体整个的大小，包括收藏栏、地址栏等等。
 
 当浏览器大小发生改变的时候这些数值也会变化。
 
 ### `pageXOffset` and `pageYOffset`
+
+兼容性良好
 
 表示整个页面的滚动的像素值。
 
@@ -26,6 +32,8 @@
 
 ### `screenX` and `screenY`
 
+兼容性良好
+
 表示浏览器窗口在显示器中的位置。
 
 有两个显示屏的时候，会以主显示器为准轴，移到副显示器的时候 `screenX` 为负数。
@@ -36,25 +44,35 @@
 
 ### `availWidth` and `availHeight`
 
+兼容性优秀
+
 显示器可用宽高，不包括任务栏之类的东西。
 
 若把任务栏隐藏就会发现 `availHeight` 变大了一些。
 
 ### `colorDepth`
 
+兼容性良好
+
 表示显示器的颜色深度。
 
 ### `pixelDepth`
 
+兼容性良好
+
 基本表现和 `colorDepth` 类似。
 
 ### `width` and `height`
+
+兼容性优秀
 
 表示显示器屏幕的宽高，包括任务栏，大抵就是屏幕会发亮的所有的地方。
 
 ## 文档视图和元素视图方法
 
 ### `elmentFromPoint()`
+
+兼容性良好
 
 `document.`
 
@@ -68,6 +86,8 @@ document.elementFromPoint(100, 100)
 
 ### `getBoundingClientRect()`
 
+兼容性优秀
+
 `element.`
 
 得到矩形元素的界限，返回的是一个对象，包含 `top` `left` `right` `bottom` 四个属性值，大小都是相对文档视图左上角计算出来的。
@@ -75,6 +95,8 @@ document.elementFromPoint(100, 100)
 看过一句话，出处已忘，说频繁使用该方法不是很好，每次调用浏览器都会把所有元素位置计算一边，会造成白屏。
 
 ### `getClientRects()`
+
+兼容性良好
 
 `element.`
 
@@ -86,6 +108,8 @@ document.elementFromPoint(100, 100)
 
 ### `scrollIntoView()`
 
+兼容性优秀
+
 `element.`
 
 让元素滚动到可视区域。
@@ -95,6 +119,8 @@ document.elementFromPoint(100, 100)
 `element.`
 
 ### `clientLeft` and `clientTop`
+
+兼容性优秀
 
 表示元素的内容区域和该元素左上角的位置的距离。
 
@@ -111,9 +137,13 @@ document.elementFromPoint(100, 100)
 
 ### `clientWidth` and `clientHeight`
 
+兼容性优秀
+
 表示内容区域的高度和宽度，包括 `padding` 大小，但是不包括边框和滚动条。
 
 ### `offsetLeft` and `offsetTop`
+
+兼容性优秀
 
 表示相对最近的祖先定位元素（`position` 被设置为 `relative`、`absolute` 或 `fixed` 的元素）的偏移量。
 
@@ -122,6 +152,8 @@ document.elementFromPoint(100, 100)
 偏移量 = 父级元素的 `padding` + 该元素的 `margin`。
 
 ### `offsetParent`
+
+兼容性优秀
 
 得到的是一个最近的祖先定位元素。
 
@@ -137,13 +169,19 @@ document.elementFromPoint(100, 100)
 
 ### `offsetWidth` and `offsetHeight`
 
+兼容性优秀
+
 整个元素的尺寸，包括边框。
 
 ### `scrollLeft` and `scrollTop`
 
+兼容性优秀
+
 表示元素滚动的像素大小，可以改写。
 
 ### `scrollWidth` and `scrollHeight`
+
+兼容性良好
 
 表示整个内容区域的宽高，包括被隐藏的部分，如果元素没有隐藏的部分，该值等于 `clientWidth` 和 `clientHeight`
 
@@ -155,13 +193,19 @@ document.elementFromPoint(100, 100)
 
 ### `clientX` and `clientY`
 
+兼容性优秀
+
 值为鼠标处相对于 `window` 的左上角偏移量。
 
 ### `offsetX` and `offsetY`
 
+兼容性较差
+
 表示鼠标相对于当前被点击元素的左上偏移量。
 
 ### `pageX` and `pageY`
+
+兼容性良好
 
 为鼠标相对于 `document` 的坐标。
 
@@ -169,10 +213,14 @@ document.elementFromPoint(100, 100)
 
 ### `screenX` and `screenY`
 
+兼容性优秀
+
 鼠标相对于显示器屏幕的偏移坐标，手机中基本等于 `pageX` `pageY`。
 
 双屏幕显示器中，若在副显示器点击，则 `screenX` 为负数。
 
 ### `x` and `y`
+
+兼容性良好
 
 相当于 `clientX` `clientY`。
