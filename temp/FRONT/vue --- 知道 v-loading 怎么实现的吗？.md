@@ -138,7 +138,7 @@ loadingDirective.install = Vue => {
         el: document.createElement('div'),
         // 有些人看到这里会迷惑，为什么这个 data 不按照 Vue 官方建议传函数进去呢？
         // 其实这里两者皆可
-        // 稍微做一点延展好了，在 Vue 源码里面，data 是惰性求值的
+        // 稍微做一点延展好了，在 Vue 源码里面，data 是延迟求值的
         // 贴一点 Vue 源码上来
         // return function mergedInstanceDataFn() {
         //   let instanceData = typeof childVal === 'function'
@@ -184,8 +184,6 @@ loadingDirective.install = Vue => {
 }
 export default loadingDirective
 ```
-
-
 
 ### 服务
 
