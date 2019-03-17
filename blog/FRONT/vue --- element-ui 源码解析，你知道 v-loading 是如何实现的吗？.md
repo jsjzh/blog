@@ -1,12 +1,16 @@
 # element-ui 源码解析，你知道 v-loading 是如何实现的吗？
 
+<div style="text-align: center">
+  <img src="https://i.loli.net/2019/03/17/5c8e1691c7d26.png">
+</div>
+
 ## 前言
 
 相信大家肯定都用过 element-ui 里面的 `v-loading` 来写加载，但是如果让你来写一个的话你会怎么写呢？
 
 众所周知，element-ui 框架的 `v-loading` 有两种使用方式，一种是在需要 loading 的标签上直接使用 `:v-loading='true'`，这种方式官方称为指令，还有一种就是使用 `this.$loading(options)` 来调用，这种方式官方称之为服务。
 
-人类对于对于美好的事物总会有趋向性，我也不外乎如此，话不多说，直接扒源码。
+人类对于对于美好的事物总会有趋向性，我也不外乎如此，话不多说（个屁，就你话最多），直接扒源码。
 
 有些人天生就适合你，有的代码天生就适合阅读，优秀的开源项目都是如此，希望接下来我的解析也可以让你恍然大悟，随后窃笑一声，原来就这样。
 
@@ -35,7 +39,7 @@ mounted() {
 }
 ```
 
-心里稍微留点印象，我们简单粗暴一些，直接扒源码吧。
+稍微留点印象，我们简单粗暴一些，直接扒源码吧。
 
 ### 起点
 
@@ -280,6 +284,8 @@ export default Loading
 
 我在平时看源码的过程中会发现不少有意思的代码，如果有兴趣的话可以来我的项目里看看，里面就有我自己写的 `v-custom-loading`，还结合了一些自己的想法，比如将组件实例挂载的时候，我推荐如下写法。
 
+[我的 vue-tiny-code 欢迎 star](https://github.com/jsjzh/vue-tiny-code)
+
 ```javascript
 const context = '@@loadingContext'
 ...
@@ -289,7 +295,7 @@ el[context] = { instance: mask }
 
 这么写的原因就是不要污染 `el` 元素本身有的属性，毕竟有可能自己定义的属性会和 `dom` 原有的属性冲突。
 
-另外我在 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 项目中提了 `pr` 用的就是这种写法。具体可以看 [vue-element-admin issue 1704](https://github.com/PanJiaChen/vue-element-admin/issues/1704) 和 [vue-element-admin issue 1705](https://github.com/PanJiaChen/vue-element-admin/pull/1705)。
+另外我在 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 项目中提了 pr 用的就是这种写法。具体可以看 [vue-element-admin issue 1704](https://github.com/PanJiaChen/vue-element-admin/issues/1704) 和 [vue-element-admin issue 1705](https://github.com/PanJiaChen/vue-element-admin/pull/1705)。
 
 ps：最近面试题泛滥，我想如果把标题改成《面试题解析，你知道 v-loading 该如何实现么？》会不会更有人关注一些？（狗头保平安）
 
