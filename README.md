@@ -8,6 +8,8 @@
 
 [Vue 结合 echarts 原生 html5 实现拖拽排版报表系统](https://github.com/jsjzh/blog/issues/6)
 
+[element-ui 源码解析，你知道 v-loading 是如何实现的吗？.md](https://github.com/jsjzh/blog/issues/8)
+
 ### webpack
 
 [比较详细的 手工配置 webpack 4.x --- 基础开发环境](https://github.com/jsjzh/blog/issues/3)
