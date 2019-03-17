@@ -4,7 +4,7 @@
 
 相信大家肯定都用过 element-ui 里面的 `v-loading` 来写加载，但是如果让你来写一个的话你会怎么写呢？
 
-众所周知，element-ui 框架的 `v-loading` 有两种使用方式，一种是在需要 loading 的标签上直接使用 `:v-loading="true"`，这种方式官方称为指令，还有一种就是使用 `this.$loading(options)` 来调用，这种方式官方称之为服务。
+众所周知，element-ui 框架的 `v-loading` 有两种使用方式，一种是在需要 loading 的标签上直接使用 `:v-loading='true'`，这种方式官方称为指令，还有一种就是使用 `this.$loading(options)` 来调用，这种方式官方称之为服务。
 
 人类对于对于美好的事物总会有趋向性，我也不外乎如此，话不多说，直接扒源码。
 
@@ -20,7 +20,7 @@
 
 ```html
 <template>
-  <div :v-loading.fullscreen="true">全屏覆盖</div>
+  <div :v-loading.fullscreen='true'>全屏覆盖</div>
 </template>
 ```
 
@@ -279,7 +279,7 @@ export default Loading
 我在平时看源码的过程中会发现不少有意思的代码，如果有兴趣的话可以来我的项目里看看，里面就有我自己写的 `v-custom-loading`，还结合了一些自己的想法，比如将组件实例挂载的时候，我推荐如下写法。
 
 ```javascript
-const context = "@@loadingContext"
+const context = '@@loadingContext'
 
 ...
 el[context] = { instance: mask }
