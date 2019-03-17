@@ -20,7 +20,7 @@
 
 ```html
 <template>
-  <div :v-loading.fullscreen='true'>全屏覆盖</div>
+  <div :v-loading.fullscreen="true">全屏覆盖</div>
 </template>
 ```
 
@@ -55,7 +55,7 @@ Vue.prototype.$loading = Loading.service
 
 `Vue.use()` 这个指令是 Vue 用来安装插件的，如果传入的参数是一个对象，则该对象要提供一个 `install` 方法，如果是一个函数，则该函数被视为 `install` 方法，在 `install` 方法调用时，会将 `Vue` 作为参数传入。
 
-如果要了解更多有关 plugin，[点击这里了解 plugin](https://cn.vuejs.org/v2/guide/plugins.html 'Vue.use')，尤大大的官方文档简直百读不厌。
+如果要了解更多有关 plugin，[点击这里了解更多有关 plugin 的内容](https://cn.vuejs.org/v2/guide/plugins.html 'Vue.use')，尤大大的官方文档简直百读不厌。
 
 但是老板！这 Loading 下的两个是啥玩意儿呢！
 
@@ -202,6 +202,8 @@ if (type === 'component' && isPlainObject(definition)) {
 
 相信到了这里大家已经对如何实现 `v-loading` 有了一定的了解了，勤快的小伙伴已经卷了袖子开干了，但是文章还没完，分析完指令模式我们还要看看服务模式，稍作休息，上路。
 
+[点击这里了解更多有关 Vue.extend 的内容](https://cn.vuejs.org/v2/api/#Vue-extend 'Vue.extend')，依旧是官方文档，Vue 的文档我简直吹爆（破音）。
+
 ### 服务
 
 如果打开开发者模式看过两种 `loading` 的方式，应该会注意到指令模式和服务模式的区别，最直观的就是若有 `fullscreen` 参数，指令模式下不会移除生成的 `dom` 元素，而在服务模式下会移除生成的 `dom` 元素。
@@ -268,7 +270,7 @@ export default Loading
 
 有些人和我说，看源码的时候一看开头，十来个模块引入，一看组件，百来行，瞬间就软掉了，没有看下去的欲望了，但怎么说呢，这个时候我推荐可以先从你有些了解的功能开始看起，比如 `v-loading`，看到这个就知道是 `directive`，再源码里看的时候关注关键点，比如 `binding`、`el`、`vnode`，很快就能理清楚代码的含义了。
 
-**如果身边有更优秀的人那还好，可以以他为目标，但是当你一枝独秀，身边的人都不如自己，你不知自己该如何成长的时候，这个时候就应该去看看源码，从源码中学习，从源码提升自己。**
+**如果身边有更优秀的人那还好，可以以他为目标，但是当你一枝独秀，身边的人都不如自己，你不知自己该如何成长的时候，这个时候就应该去看看源码，从源码中学习，从源码中提升自己。**
 
 > 该如何看待阅读？一天的饭钱就能买到别人可能一辈子的心血，多么值钱的买卖。--- 无名
 
@@ -280,7 +282,6 @@ export default Loading
 
 ```javascript
 const context = '@@loadingContext'
-
 ...
 el[context] = { instance: mask }
 ...
@@ -296,7 +297,7 @@ ps：最近面试题泛滥，我想如果把标题改成《面试题解析，你
 
 代码即人生，我甘之如饴。
 
-我在这里 [gayhub@jsjzh](https://github.com/jsjzh/blog) 欢迎大家来找我玩儿。
+我在这里 [gayhub@jsjzh](https://github.com/jsjzh) 欢迎大家来找我玩儿。
 
 小伙伴们可以直接加我或者加群，我们一起学前端、看源码、学算法，前端进阶，加油。
 

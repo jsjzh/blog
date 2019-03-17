@@ -119,7 +119,7 @@ images(500, 100)
 
 代码即人生，我甘之如饴。
 
-我在这里 [gayhub@jsjzh](https://github.com/jsjzh/blog) 欢迎大家来找我玩儿。
+我在这里 [gayhub@jsjzh](https://github.com/jsjzh) 欢迎大家来找我玩儿。
 
 欢迎小伙伴们直接加我，拉你进群一起学习前端呀，记得备注一下你来自哪里哦。
 

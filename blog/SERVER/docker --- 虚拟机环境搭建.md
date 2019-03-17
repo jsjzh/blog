@@ -448,7 +448,7 @@ $ sudo rm -rf /var/lib/docker
 
 代码如人生，我甘之如饴。
 
-我在这里 [gayhub@jsjzh](https://github.com/jsjzh/blog) 欢迎大家来找我玩儿。
+我在这里 [gayhub@jsjzh](https://github.com/jsjzh) 欢迎大家来找我玩儿。
 
 ## 大纲
 
