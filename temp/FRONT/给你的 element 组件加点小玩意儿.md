@@ -1,8 +1,4 @@
-# 标题
-
-## 小剧场
-
-1
+# 手把手教你如何给你的 element-ui 组件加点小玩意儿
 
 ## 前言
 
@@ -18,7 +14,9 @@
 
 ## 大纲
 
-大纲
+v-wave 按钮水波纹实现
+
+v-drag-dialog 可拖拽的 el-dialog 实现
 
 ## 页脚
 
@@ -28,6 +26,6 @@
 
 欢迎小伙伴们直接加我，拉你进群一起学习前端呀，记得备注一下你来自哪里哦。
 
-![wechat](https://i.loli.net/2019/03/11/5c867208cc9c0.jpg)
+<!-- ![wechat](https://i.loli.net/2019/03/11/5c867208cc9c0.jpg) -->
 
-![wechat](https://i.loli.net/2019/03/17/5c8e0dfc3dadf.jpg)
+<!-- ![wechat](https://i.loli.net/2019/03/17/5c8e0dfc3dadf.jpg) -->
