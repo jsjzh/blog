@@ -308,4 +308,107 @@ Content-Length: 1024（1024字节的数据）
 
 > 但是鉴于 HTTP/1.1 的 PUT 方法自身不带验证机制，任何人都可以上传文件，存在安全性问题，因此一般不使用该方法，若配合 Web 应用程序的验证机制，或架构设计采用 REST（表征状态转移）标准的同类 Web 网站，就可能会开放使用 PUT 方法
 
+```
+PUT /example.html HTTP/1.1
+Host: www.github.com
+Content-Type: text/html
+Content-Length: 1024（1024字节的数据）
+```
 
+↓↓↓
+
+```
+响应返回状态码为 204 No Content（比如：该 html 已存在与服务器上）
+```
+
+- HEAD
+  - 和 GET 方法类似，只是不返回报文主体部分
+  - 用于确认 URI 的有效性及资源更新的日期时间等
+
+```
+HEAD /index.html HTTP/1.1
+Host: www.github.com
+```
+
+↓↓↓
+
+```
+返回 index.html 有关的响应首部
+```
+
+- DELETE
+  - 用来删除文件，与 PUT 相反的方法
+
+```
+DELETE /example.html HTTP/1.1
+Host: www.github.com
+```
+
+↓↓↓
+
+```
+响应返回状态码 204 No Content（比如：该 html 已从该服务器上删除）
+```
+
+- OPTIONS
+  - 询问支持的方法
+  - 用来查询针对请求 URI 制定的资源支持的方法
+
+```
+OPTIONS * HTTP/1.1
+Host: www.github.com
+```
+
+↓↓↓
+
+```
+HTTP/1.1 200 OK
+Allow: GET,POST,HEAD,OPTIONS（返回服务器支持的方法）
+```
+
+- TRACE
+  - 让服务端将之前的请求通信环回给客户端的方法
+  - 发送请求时，在 Max-Forwards 首部字段中填入数值，每经过一个服务端就把该数字减 1
+  - 当数值刚好减到 0 时，就停止继续传输，最后接收到请求的服务端则返回状态码 200 OK 的响应
+  - 客户端通过 TRACE 方法可以查询发送出去的请求是怎样被加工修改/篡改的
+  - 这是因为请求想要连接到源目标服务器可能会通过代理中转
+  - TRACE 方法就是用来确认连接过程中发生的一系列操作
+  - 但是，这个方法本来就不怎么常用，再容易引发 XST（跨域追踪）攻击，就更不会用到了
+
+![TRACE](./img/TRACE.png)
+
+```
+TRACE / HTTP/1.1
+Host: www.github.com
+Max-Forwards: 2
+```
+
+↓↓↓
+
+```
+HTTP/1.1 200 OK
+Content-Type: message/http
+Content-Length: 1024
+
+TRACE / HTTP/1.1
+host: www.github.com
+Max-Forwards: 2（返回响应包含请求内容）
+```
+
+- CONNECT
+  - 要求用隧道协议连接代理
+  - 该方法要求在与代理服务器通信时建立隧道，实现用隧道协议进行 TCP 通信
+  - 主要使用 SSL（安全套接层）和 TLS（传输层安全）协议把通信内容加密后经网络隧道传输
+
+![CONNECT](./img/CONNECT.png)
+
+```
+CONNECT proxy.github.com:8080 HTTP/1.1
+Host: proxy.github.com
+```
+
+↓↓↓
+
+```
+HTTP/1.1 200 OK（之后进入网络隧道）
+```
