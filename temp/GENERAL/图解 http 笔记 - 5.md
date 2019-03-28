@@ -69,6 +69,7 @@ HTTP 首部字段是由首部字段名和字段值构成，中间用冒号分隔
 
 ### HTTP/1.1 首部字段一览
 
+RFC2616 定义了 47 种首部字段
 
 通用首部字段
 
@@ -136,3 +137,99 @@ HTTP 首部字段是由首部字段名和字段值构成，中间用冒号分隔
 | Content-Type     | 实体主体的媒体类型           |
 | Expires          | 实体主体过期的日期时间       |
 | Last-Modified    | 资源的最后修改日期时间       |
+
+### 非 HTTP/1.1 首部字段
+
+除了 RFC2616 中定义的 47 种首部字段外，还有 Cookie、Set-Cookie 和 Content-Disposition 等在其他 RFC 中定义的首部字段使用频率也很高
+
+### End-to-end 首部和 Hop-by-hop 首部
+
+HTTP 首部将定义成缓存代理和非缓存代理的行为，分成 2 种类型
+
+端到端首部
+
+分在此类别中的首部会转发给请求/响应对应的最终接受目标，且必须保存在由缓存生成的相应中，另外规定它必须被转发
+
+逐跳首部
+
+分在此类别中的首部只对单次转发有效，会因通过缓存或代理而不再转发
+
+HTTP/1.1 和之后版本中，如果要使用 hop-by-hop 首部，需要提供 Connection 首部字段
+
+逐条首部字段，除了下列，其他都属于端到端首部
+
+- Connection
+- Keep-Alive
+- Proxy-Authenticate
+- Proxy-Authorization
+- Trailer
+- TE
+- Transfer-Encoding
+- Upgrade
+
+## HTTP/1.1 通用首部字段
+
+即请求和响应报文双方都会使用的首部
+
+### Cache-Control
+
+`Cache-Control: private, max-age=0, no-cache`
+
+Cache-Control 请求指令
+
+| 指令                | 参数   | 说明                         |
+| :------------------ | :----- | :--------------------------- |
+| no-cache            | 无     | 强制向源服务器再次验证       |
+| no-store            | 无     | 不缓存请求或响应的任何内容   |
+| max-age = [ 秒]     | 必需   | 响应的最大 Age 值            |
+| max-stale( = [ 秒]) | 可省略 | 接收已过期的响应             |
+| min-fresh = [ 秒]   | 必需   | 期望在指定时间内的响应仍有效 |
+| no-transform        | 无     | 代理不可更改媒体类型         |
+| only-if-cached      | 无     | 从缓存获取资源               |
+| cache-extension     | -      | 新指令标记（token）          |
+
+Cache-Control 响应指令
+
+| 指令             | 参数   | 说明                                           |
+| :--------------- | :----- | :--------------------------------------------- |
+| public           | 无     | 可向任意方提供响应的缓存                       |
+| private          | 可省略 | 仅向特定用户返回响应                           |
+| no-cache         | 可省略 | 缓存前必须先确认其有效性                       |
+| no-store         | 无     | 不缓存请求或响应的任何内容                     |
+| no-transform     | 无     | 代理不可更改媒体类型                           |
+| must-revalidate  | 无     | 可缓存但必须再向源服务器进行确认               |
+| proxy-revalidate | 无     | 要求中间缓存服务器对缓存的响应有效性再进行确认 |
+| max-age = [ 秒]  | 必需   | 响应的最大 Age 值                              |
+| s-maxage = [ 秒] | 必需   | 公共缓存服务器响应的最大Age值                  |
+| cache-extension  | -      | 新指令标记（token）                            |
+
+表示是否能缓存的指令
+
+#### public 指令
+
+`Cache-Control: public`
+
+当指定使用 public 指令时，则明确表明其他用户也可利用缓存
+
+`Cache-Control: private`
+
+当指定 private 指令后，响应只能让特定的用户缓存
+
+缓存服务器会对该特定用户提供资源缓存的服务，对于其他用户发送的请求不会缓存
+
+#### no-cache 指令
+
+`Cache-Control: no-cache`
+
+使用 no-cache 指令的目的是**为了防止从缓存中返回过期的资源**
+
+客户端发送请求首部若包含 no-cache 指令，表示客户端不会接收缓存过的响应，缓存服务器必须把请求转发给源服务器
+
+服务器返回的响应首部若包含 no-cache 指令，表示缓存服务器不能对资源进行缓存，且缓存服务器若提出要确认该资源的有效性，源服务器不响应
+
+`Cache-Control: no-cache=Location`
+
+由服务器返回的响应中，若 no-cache 有具体参数值，客户端就不会对该资源进行缓存，无参数值的首部字段资源可以缓存
+
+这只能在响应指令中指定该参数
+
