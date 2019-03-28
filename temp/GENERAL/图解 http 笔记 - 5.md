@@ -229,7 +229,285 @@ Cache-Control 响应指令
 
 `Cache-Control: no-cache=Location`
 
-由服务器返回的响应中，若 no-cache 有具体参数值，客户端就不会对该资源进行缓存，无参数值的首部字段资源可以缓存
+由服务器返回的响应中，若 no-cache 有具体参数值，客户端就不会对该资源进行缓存，无参数值的首部字段资源可以缓存，且这只能在响应指令中指定该参数
 
-这只能在响应指令中指定该参数
+控制可执行缓存的对象的指令
+
+#### no-store 指令
+
+`Cache-Control: no-store`
+
+> 从字面意思上理解 no-cache 很容易理解成不缓存，其实 no-cache 掉膘不缓存过期的资源，缓存会向源服务器进行有效期确认后处理资源
+> no-store 才是不进行缓存
+
+该指令规定缓存不能在本地存储请求或响应的任一部分
+
+#### s-maxage 指令
+
+`Cache-Control: s-maxage=604800`（单位：秒）
+
+s-maxage 指令的功能和 max-age 指令的相同，它们的不同点是 s-maxage 指令只适用于供多为用户使用的公共缓存服务器（这里一般指代理）
+
+另外，当使用 s-maxage 指令后，直接忽略对 Expires 首部字段及 max-age 指令的处理
+
+#### max-age 指令
+
+![max-age](./img/max-age.png)
+
+`Cache-Control: max-age=604800`（单位：秒）
+
+当客户端发送的请求中包含 max-age 指令时，如果判定缓存资源的缓存时间数值比指定时间的数值更小，那么客户端就接受缓存的资源
+
+另外，当指定 max-age 的值为 0 时，缓存服务器通常将请求转发给源服务器
+
+当服务器返回的响应中包含 max-age 指令时，缓存服务器将不对资源的有效性再做确认，而 max-age 数值代表资源保存为缓存的最长时间
+
+应用 HTTP/1.1 版本的缓存服务器若遇到 Expires 和 max-age 同时存在，会优先处理 max-age 而忽略 Expires 首部字段，但是 HTTP/1.0 正好相反
+
+#### min-fresh 指令
+
+`Cache-Control: min-fresh=60`（单位：秒）
+
+min-fresh 指令要求缓存服务器返回至少还未过指定时间的缓存资源
+
+比如当指定 min-fresh 为 60 秒后，过了 60 秒的资源都无法作为响应返回了
+
+#### max-stale 指令
+
+`Cache-Control: max-stale=3600`（单位：秒）
+
+使用 max-stale 可指示缓存资源，即使过期也照常接收
+
+如果指令未指定参数值，那么无论经过多久客户端都会接收响应
+
+如果指令中制定了具体数值，那么即使过期，只要仍处于 max-stale 指定的时间内，仍旧会被客户端接收
+
+#### only-if-cached 指令
+
+`Cache-Control: only-if-cached`
+
+使用 only-if-cached 指令表示客户端仅在缓存服务器本地缓存目标资源的情况下才会要求返回
+
+换言之，该指令要求缓存服务器不重新加载响应，也不会再次确认资源有效性，若发生请求缓存服务器的本地缓存无响应，则返回状态码 504 Gateway Timeout
+
+#### must-revalidate 指令
+
+`Cache-Control: must-revalidate`
+
+使用 must-revalidate 指令，代理会像源服务器再次验证即将返回的响应缓存目前是否仍然有效
+
+若代理无法连通源服务器再次获取有效资源的话，缓存必须给客户端一条 504 Gateway Timeout 状态码
+
+另外，使用 must-revalidate 会忽略请求的 max-stale 指令
+
+#### proxy-revalidate 指令
+
+`Cache-Control: proxy-revalidate`
+
+proxy-revalidate 指令要求所有的缓存服务器在接收到客户端带有该指令的请求返回响应之前，必须再次验证缓存的有效性
+
+#### no-transfrom 指令
+
+`Cache-Control: no-transform`
+
+使用 no-transform 指令规定无论是在请求还是响应中，缓存都不能改变实体主体的媒体类型
+
+这样做可防止缓存或代理压缩图片等类似操作
+
+Cache-Control 扩展
+
+`cache-extension token`
+
+`Cache-Control: private, commuity="UCI"`
+
+通过 cache-extension 标记（token），可以扩展 Cache-Control 首部字段内的指令
+
+如果缓存服务器不能理解 community 指令就会直接忽略
+
+### Connection
+
+Connection 首部字段具备如下两个作用
+
+- 控制不再转发给代理的首部字段
+  - ![Connection不再转发](./img/Connection不再转发.png)
+  - 在客户端发送请求和服务器返回响应内，使用 Connection 首部字段，可控制不再转发给代理的首部字段
+- 管理持久连接
+  - ![Connection-close](./img/Connection-close.png)
+  - `Connection: close`
+  - ![Connection-keep-alive](./img/Connection-keep-alive.png)
+  - HTTP/1.1 版本的默认连接都是持久连接，为此，客户端会在持久连接上连续发送请求
+  - 当服务器想明确断开连接时，则指定 Connection 首部字段的值为 Close
+  - HTTP/1.1 之前的版本默认是非持久连接，若想要维持持续连接，需要指定 Connection 值为 Keep-Alive
+
+### Date
+
+表明创建 HTTP 报文的日期和时间
+
+### Pragma
+
+Pragma 是 HTTP/1.1 之前版本的历史遗留字段，仅作为与 HTTP/1.0 的向后兼容而定义
+
+`Pragma: no-cache`
+
+该首部字段属于通用首部字段，但只用在客户端发送的请求中，客户端会要求所有的中间服务器不返回缓存的资源
+
+为了兼容性，发送的请求会同时还有两个首部字段
+
+```
+Cache-Control: no-cache
+Pragma: no-cache
+```
+
+### Trailer
+
+首部字段 Trailer 会事先说明在报文主体后记录了那些首部字段，该首部字段可应用在 HTTP/1.1 版本分块传输编码时
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 03 Jul 2012 04:40:56 GMT
+Content-Type: text/html
+Trailer: Expires
+
+...
+报文主体
+...
+0
+Expires: Tue, 28 Sep 2004 23:59:59 GMT
+```
+
+以上用例中，指定首部字段 Trailer 的值为 Expires，在报文主体之后（分块长度 0 之后）出现了首部字段 Expires
+
+### Transfer-Encoding
+
+Transfer-Encoding 规定了传输报文主体时采用的编码方式
+
+HTTP/1.1 的传输编码方式仅对分块传输编码有效
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 03 Jul 2012 04:40:56 GMT
+Transfer-Encoding: chunked
+
+cf0 ←16进制(10进制为3312)
+...3312字节分块数据...
+392 ←16进制(10进制为914)
+...914字节分块数据...
+0
+```
+
+以上用例中，正如首部字段 Transfer-Encoding 中指定的那样，有效使用分块传输编码，且被分成 3312 字节和 914 字节大小的分块数据
+
+### Upgrade
+
+首部字段 Upgrade 用于检测 HTTP 协议及其他协议是否可使用更高的版本进行通信，其参数值可以用来指定一个完全不同的通信协议
+
+![Upgrade](./img/Upgrade.png)
+
+上图用例中，首部字段 Upgrade 指定的值为 TLS/1.0
+
+Upgrade 首部字段产生作用的 Upgrade 对象仅限于客户端和邻接服务器之间，因此，使用 Upgrade 时还需要额外指定 Connection: Upgrade
+
+对于附有首部字段 Upgrade 的请求，服务器可用 101 Switching Protocols 状态码作为响应返回
+
+### Via
+
+使用 Via 是为了追踪客户端与服务器之间的请求和响应报文的传输路径
+
+报文经过代理或网关时，会先在首部 Via 中附加该服务器的信息再进行转发
+
+Via 不仅用于追踪报文的转发，还可避免请求回环的发生
+
+![Via](./img/Via.png)
+
+Via 首部是为了追踪传输路径，所以经常和 TRACE 一起使用
+
+比如代理服务器接收到由 TRACE 方法发送过来的请求（其中 Max-Forwards: 0）时，代理服务器就不能再转发该请求了
+
+这种情况下，代理服务器会将自身的信息附加到 Via 首部后返回该请求的响应
+
+### Warning
+
+HTTP/1.1 的 Warning 首部是从 HTTP/1.0 的响应首部（ Retry-After）演变过来的，该首部通常会告知用户一些与缓存相关的问题的警告
+
+`Warning: 警告码 警告的主机:端口号 "警告内容" 日期时间`
+
+HTTP/1.1 警告码
+
+| 警告码 | 警告内容                                         | 说明                                                           |
+| :----- | :----------------------------------------------- | :------------------------------------------------------------- |
+| 110    | Response is stale（响应已过期）                  | 代理返回已过期的资源                                           |
+| 111    | Revalidation failed（再验证失败）                | 代理再验证资源有效性时失败（服务器无法到达等原因）             |
+| 112    | Disconnection operation（断开连接操作）          | 代理与互联网连接被故意切断                                     |
+| 113    | Heuristic expiration（试探性过期）               | 响应的使用期超过24小时（有效缓存的设定时间大于24小时的情况下） |
+| 199    | Miscellaneous warning（杂项警告）                | 任意的警告内容                                                 |
+| 214    | Transformation applied（使用了转换）             | 代理对内容编码或媒体类型等执行了某些处理时                     |
+| 299    | Miscellaneous persistent warning（持久杂项警告） | 任意的警告内容                                                 |
+
+## 请求首部字段
+
+请求首部字段是从客户端往服务器端发送请求报文中所使用的字段，用于补充请求的附加信息、客户端信息、对相应内容相关的优先级等内容
+
+### Accept
+
+`Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8`
+
+Accept 可通知服务器用户代理能够处理的媒体类型及媒体类型的相对优先级
+
+- 文本文件
+  - text/html,text/plain,text/css ...
+  - application/xhtml+xml,application/xml ...
+- 图片文件
+  - image/jpeg,image/gif,image/png ...
+- 视频文件
+  - video/mpeg,video/quicktime ...
+- 应用程序食用的二进制文件
+  - application/octet-stream,application/zip ...
+
+若想要增加优先级，使用 q= 来额外表示权重值，用 ; 进行分隔
+
+### Accept-Charset
+
+`Accept-Charset: iso-8859-5, unicode-1-1;q=0.8`
+
+Accept-Charset 可用来通知服务器用户代理支持的字符集及字符集的相对优先顺序
+
+### Accept-Encoding
+
+`Accept-Encoding: gzip, deflate`
+
+Accept-Encoding 用来告知服务器用户代理支持的内容编码及内容编码的优先级顺序
+
+### Accept-Language
+
+`Accept-Language: zh-cn,zh;q=0.7,en-us,en;q=0.3`
+
+Accept-Language 用来告知服务器用户代理能够处理的自然语言集
+
+### Authorization
+
+`Authorization: Basic dWVub3NlbjpwYXNzd29yZA==`
+
+Authorization 用来告知服务器，用户代理的认证信息（证书值）
+
+### Expect
+
+`Expect: 100-continue`
+
+客户端使用 Expect 来告知服务器希望出现的某种特定行为，因为服务器无法理解客户端的期望作出回应而发生错误时，会返回状态码 417 Expectiation Failed
+
+### From
+
+From 用来告知服务器使用用户代理的用户的电子邮件地址
+
+### Host
+
+`Host: www.github.com`
+
+当虚拟主机运行在同一个 IP 上，因此使用 Host 加以区分
+
+Host 会告知服务器请求的资源所处的互联网主机名和端口号，**Host 是唯一一个必须被包含在请求内的首部字段**
+
+若服务器未设定主机名，那直接发送一个空值即可
+
+`Host: `
 
