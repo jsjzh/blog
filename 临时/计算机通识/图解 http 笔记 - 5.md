@@ -797,3 +797,117 @@ Cookie 工作机制是用户识别及状态管理
 `Set-Cookie: status=enable; expires=Tue, 05 Jul 2011 07:26:31 GMT; path=/; domain=.hackr.jp;`
 
 当服务器准备开始管理客户端的状态时，会在头部设置 Set-Cookie
+
+| 属性         | 说明                                                                           |
+| :----------- | :----------------------------------------------------------------------------- |
+| NAME=VALUE   | 赋予 Cookie 的名称和其值（必需项）                                             |
+| expires=DATE | Cookie 的有效期（若不明确指定则默认为浏览器关闭前为止）                        |
+| path=PATH    | 将服务器上的文件目录作为Cookie的适用对象（若不指定则默认为文档所在的文件目录） |
+| domain=域名  | 作为 Cookie 适用对象的域名（若不指定则默认为创建 Cookie 的服务器的域名）       |
+| Secure       | 仅在 HTTPS 安全通信时才会发送 Cookie                                           |
+| HttpOnly     | 加以限制，使 Cookie 不能被 JavaScript 脚本访问                                 |
+
+#### expires 属性
+
+指定浏览器可发送 Cookie 的有效期，当省略 expires 属性时，其有效期仅限于维持浏览器会话（Session）时间段内
+
+另外，一旦 Cookie 从服务器端发送至客户端，**服务器就不存在可以显式删除 Cookie 的方法**，但可以通过覆盖已过期的 Cookie，实现对客户端 Cookie 的实质性删除操作
+
+#### path 属性
+
+Cookie 的 path 属性可用于限制指定 Cookie 的发送范围的文件目录，但是也有办法可避开次限制，安全性不强
+
+#### domain 属性
+
+通过 domain 属性指定的域名可做到与结尾匹配一致
+
+比如，当指定 github.com 后，除  github.com 外，www.github.com 或 dev.github.com 等都可以发送 Cookie
+
+因此，除了针对具体指定的多个域名发送 Cookie 之外，不指定 domain 属性显得更安全
+
+#### secure 属性
+
+`Set-Cookie: name=value; secure`
+
+该属性用于限制 Web 页面仅在 HTTPS 安全连接时才可以发送 Cookie
+
+#### HttpOnly 属性
+
+`Set-Cookie: name=value; HttpOnly`
+
+HttpOnly 属性是 Cookie 的扩展功能，他可以让 JavaScript 脚本无法获得 Cookie，其主要目的是为防止跨站脚本攻击（XSS）对 Cookie 的信息窃取
+
+设置了 HttpOnly 之后，document.cookie 就无法读取其内容了
+
+> 该扩展并非是为了防止 XSS 而开发的
+
+### Cookie
+
+`Cookie: status=enable`
+
+Cookie 会告知服务器，当客户端想获得 HTTP 状态管理支持时，就会在请求中包含从服务器接收到的 Cookie
+
+## 其他首部字段
+
+HTTP 首部字段是可以自行扩展的
+
+- X-Frame-Options
+- X-XSS-Protection
+- DNT
+- P3P
+
+### X-Frame-Options
+
+`X-Frame-Options: DENY`
+
+X-Frame-Options 属于 HTTP 响应首部，用于控制网站内容在其他 Web 网站的 Frame 标签内的显示问题，其主要目的是为了防止点击劫持（clickjacking）攻击
+
+可指定的字段值
+
+- DENY
+  - 拒绝
+- SAMEORIGIN
+  - 仅同源域名下的页面匹配时许可
+  - 比如，当指定 http://github.com/index.html 页面为 SAMEORIGIN 时，那么 gihub.com 上所有页面的 frame 都被允许可加载该页面，而其他域名的页面就不行了
+
+### X-XSS-Protection
+
+`X-XSS-Protection: 1`
+
+X-XSS-Protection 属于 HTTP 响应首部，它是针对跨站脚本攻击（XSS）的一种对策，用于控制浏览器 XSS 防护机制的开关
+
+可指定的字段值
+
+- 0
+  - 将 XSS 过滤设置成无效状态
+- 1
+  - 将 XSS 过滤设置成有效状态
+
+### DNT
+
+`DNT: 1`
+
+DNT 属于 HTTP 请求首部，意为是否拒绝个人信息被收集，是表示拒绝被精准广告追踪的一种方法
+
+可指定的字段值
+
+- 0
+  - 统一被追踪
+- 1
+  - 拒绝被追踪
+
+由于首部字段 DNT 的功能具备有效性，所以 Web 服务器需要对 DNT 做对应的支持
+
+### P3P
+
+`P3P: CP="CAO DSP LAW CURa ADMa DEVa TAIa PSAa PSDa IVAa IVDa OUR BUS IND UNI COM NAV INT"`
+
+P3P 属于 HTTP 响应首部，通过利用 P3P（在线隐私偏好平台）技术，可以让 Web 网站上的个人隐私变成一种仅供程序可理解的形式，已达到保护用户隐私的目的
+
+要进行 P3P 的设定，需要进行一下步骤
+
+1. 创建 P3P 隐私
+2. 创建 P3P 隐私对照文件吼，保存命名在 /w3c/p3p.xml
+3. 从 P3P 隐私中新建 Compact plicies 后，输出到 HTTP 响应中
+
+![P3P](./img/P3P.png)
