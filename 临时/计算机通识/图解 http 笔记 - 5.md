@@ -63,7 +63,7 @@ HTTP 首部字段是由首部字段名和字段值构成，中间用冒号分隔
 - 请求首部字段
   - 从客户端向服务器端发送请求报文时使用的首部，补充了请求的附加内容、客户端信息、响应内容相关优先级等信息
 - 响应首部字段
-  - 从服务器向客户端返回响应报文时使用的首部，补充了相应的附加内容，也会要求客户端附加额外的内容信息
+  - 从服务器向客户端返回响应报文时使用的首部，补充了响应的附加内容，也会要求客户端附加额外的内容信息
 - 实体首部字段
   - 针对请求报文和响应报文的实体部分使用的首部，补充了资源内容更新时间等与实体有关的信息
 
@@ -148,7 +148,7 @@ HTTP 首部将定义成缓存代理和非缓存代理的行为，分成 2 种类
 
 端到端首部
 
-分在此类别中的首部会转发给请求/响应对应的最终接受目标，且必须保存在由缓存生成的相应中，另外规定它必须被转发
+分在此类别中的首部会转发给请求/响应对应的最终接受目标，且必须保存在由缓存生成的响应中，另外规定它必须被转发
 
 逐跳首部
 
@@ -280,7 +280,7 @@ min-fresh 指令要求缓存服务器返回至少还未过指定时间的缓存�
 
 如果指令未指定参数值，那么无论经过多久客户端都会接收响应
 
-如果指令中制定了具体数值，那么即使过期，只要仍处于 max-stale 指定的时间内，仍旧会被客户端接收
+如果指令中指定了具体数值，那么即使过期，只要仍处于 max-stale 指定的时间内，仍旧会被客户端接收
 
 #### only-if-cached 指令
 
@@ -445,7 +445,7 @@ HTTP/1.1 警告码
 
 ## 请求首部字段
 
-请求首部字段是从客户端往服务器端发送请求报文中所使用的字段，用于补充请求的附加信息、客户端信息、对相应内容相关的优先级等内容
+请求首部字段是从客户端往服务器端发送请求报文中所使用的字段，用于补充请求的附加信息、客户端信息、对响应内容相关的优先级等内容
 
 ### Accept
 
@@ -525,7 +525,7 @@ If-Match，他会告知服务器匹配资源所用的实体标记（ETag）值�
 
 服务器会对比 If-Match 的字段值和资源的 ETag 值，仅当两者一致时才会执行请求，反之则返回状态码 412 Precondition Failed 的响应
 
-还可以使用 * 制定 If-Match 字段值，这种情况服务器会忽略 ETag 的值，只要资源存在就处理请求
+还可以使用 * 指定 If-Match 字段值，这种情况服务器会忽略 ETag 的值，只要资源存在就处理请求
 
 ### If-Modified-Since
 
@@ -559,7 +559,7 @@ If-Range 告知服务器若指定的 If-Range 字段值（ETag 值或者时间�
 
 `If-Unmodified-Since: Thu, 03 Jul 2012 00:00:00 GMT`
 
-If-Unmodified-Since 和 If-Modified-Since 相反，他的作用是告知服务器，制定的请求只有在字段值内指定的时间之后，未发生更新的情况下，才需要处理请求，如果在指定日期时间后发生了更新，返回状态码 412 Precondition Failed
+If-Unmodified-Since 和 If-Modified-Since 相反，他的作用是告知服务器，指定的请求只有在字段值内指定的时间之后，未发生更新的情况下，才需要处理请求，如果在指定日期时间后发生了更新，返回状态码 412 Precondition Failed
 
 ### Max-Forwards
 
@@ -601,7 +601,7 @@ Referer 告知服务器请求的原始资源的 URI，点击网页上某一链�
 
 `TE: gzip, deflate;q=0.5`
 
-TE 会告知服务器客户端能够处理相应的编码方式以及相对优先级
+TE 会告知服务器客户端能够处理响应的编码方式以及相对优先级
 
 ### User-Agent
 
@@ -627,4 +627,173 @@ Accept-Ranges 用来告知客户端服务器是否能处理范围请求，以指
 
 Age 能告知客户端源服务器在多久前创建了响应
 
-若创建该相应的服务器时缓存服务器，Age 值是指缓存后的响应再次发起认证到认证完成的时间值
+若创建该响应的服务器时缓存服务器，Age 值是指缓存后的响应再次发起认证到认证完成的时间值
+
+### TEag
+
+![ETag](./img/ETag.png)
+
+`ETag: "82e22293907ce725faf67773957acd12"`
+
+ETag 是一种可以把可用资源以字符串形式做唯一标识的方法，当资源更新的时候，ETag 也会更新
+
+强 ETag 和弱 ETag 值
+
+强 ETag 值，不论实体发生多么细微的变化都会改变其值
+
+`ETag: "usagi-1234"`
+
+弱 ETag 值，只会用于提示资源是否相同，只有资源发生了根本改变，产生差异时才会改变 ETag 值
+
+`ETag: W/"usagi-1234"`
+
+### Location
+
+![Location](./img/Location.png)
+
+`Location: http://www.github.com/index.html`
+
+Location 可以将响应接收方引导至某个与请求 URI 位置不同的资源
+
+基本上，该字段会配合 3XX Redirect 的响应，提供重定向的 URI
+
+几乎所有的浏览器在接收到包含 Location 的响应后，都会强制性尝试对已提示的重定向资源的访问
+
+### Proxy-Authenticate
+
+`Proxy-Authenticate: Basic realm="Usagidesign Auth"`
+
+Proxy-Authenticate 会把由代理服务器所要求的认证信息发送给客户端
+
+### Retry-After
+
+`Retry-After: 120`
+
+Retry-After 告知客户端应该在多久之后再次发送请求，配合状态码 503 Service Unavailable 响应，或 3XX Redirect 响应一起使用
+
+字段值可以指定具体的日期时间，也可以是创建响应后的秒数
+
+### Server
+
+`Server: nginx`
+
+Server 告知客户端当前服务器上安装的 HTTP 服务器应用程序的信息
+
+### Vary
+
+![Vary](./img/Vary.png)
+
+`Vary: Accept-Language`
+
+Vary 可对缓存进行控制，源服务器会向代理服务器传达关于本地缓存使用方法的命令
+
+代理服务器接收到源服务器包含 Vary 的指令后，若要进行缓存，只会对请求中含有相同 Vary 指定首部字段的请求返回缓存
+
+即使对相同资源发起请求，但由于 Vary 指定的首部字段不相同，因此会从源服务器重新获取资源
+
+### WWW-Authenticate
+
+`WWW-Authenticate: Basic realm="Usagidesign Auth"`
+
+WWW-Authenticate 用于 HTTP 访问认证，他会告知客户端适用于访问请求 URI 所指定资源的认证方案（Basic 或是 Digest）和带参数提示的质询（challenge）
+
+状态码 401 Unauthorized 响应中肯定带有首部字段 WWW-Authenticate
+
+## 实体首部字段
+
+实体首部字段是包含在请求报文和响应报文中的实体部分所使用的首部，用于补充内容的更新时间等与实体相关的信息
+
+### Allow
+
+`Allow: GET, HEAD`
+
+用于通知客户端所访问的 URI 支持的所有 HTTP 方法，当服务器接收到客户端发来的不支持的 HTTP 方法时，会以状态码 405 Method Not Allowed 作为响应返回
+
+与此同时，还会把所有能支持的 HTTP 方法写入首部字段 Allow 后返回
+
+### Content-Enconding
+
+`Content-Encoding: gzip`
+
+Content-Encoding 会告知客户端服务器对实体的主体部分选用的内容编码方式，内容编码是指在不丢失实体信息的前提下所进行的压缩
+
+### Content-Language
+
+`Content-Language: zh-CN`
+
+Content-Language 告知客户端实体主体使用的自然语言
+
+### Content-Length
+
+`Content-Length: 15000`
+
+Content-Length 表明了实体主体部分的大小（单位：字节），如果对实体主体进行内容编码传输，就不能再使用 Content-Length 首部字段
+
+### Content-Location
+
+`Content-Location: http://www.github.com/index.html`
+
+Content-Location 给出与报文主体部分相对应的 URI，和 Location 不同，他表示的是报文主体返回资源对应的 URI
+
+比如，使用 Accept-Language 的服务器驱动型请求，当返回的页面内容与实际请求的对象不同时，Content-Location 内会写明 URI（访问 http://www.github.com/ 返回的对象却是 http://www.github.com/index-cn.html）
+
+### Content-MD5
+
+![Content-MD5](./img/Content-MD5.png)
+
+`Content-MD5: OGFkZDUwNGVhNGY3N2MxMDIwZmQ4NTBmY2IyTY==`
+
+客户端会对接收的报文主体执行相同的 MD5 算法，然后与 Content-MD5 字段值比较，目的是检查报文主体在传输过程中是否保持完整，以及确认传输送达
+
+服务端对报文主体执行 MD5 算法获得 128 位二进制数，再通过 Base64 编码后将结果写入 Content-MD5
+
+> 因为 HTTP 首部无法记录二进制数值，所以需要 Base64 编码处理
+
+客户端对报文主体再执行一次相同的 MD5 算法，和 Content-MD5 的字段值比较即可知道报文主体的准确性
+
+### Content-Range
+
+![Content-Range](./img/Content-Range.png)
+
+`Content-Range: bytes 5001-10000/10000`
+
+针对范围请求，返回响应时使用的首部字段 Content-Range，能告知客户端作为响应返回的实体的哪个部分符合范围请求，单位（字节），表示当前发送部分及整个实体大小
+
+### Content-Type
+
+`Content-Type: text/html; charset=UTF-8`
+
+Content-Type 说明了实体主体内对象的媒体类型，和 Accept 一样的形式赋值
+
+### Expires
+
+`Expires: Wed, 04 Jul 2012 08:26:05 GMT`
+
+Expires 会将资源失效的日期告知客户端，缓存服务器在接收到含有 Expires 的响应后，会以缓存来应答请求
+
+当请求再次过来之后，如果超过指定的时间，缓存服务器会向源服务器请求资源
+
+源服务器若不希望缓存服务器对资源进行缓存的话，可以在 Expires 字段内写入和 Date 相同的值
+
+但是，当 Cache-Control 有指定 max-age 指令时会优先处理 max-age 指令
+
+### Last-Modified
+
+`Last-Modified: Wed, 23 May 2012 09:59:55 GMT`
+
+Last-Modified 指明资源最终修改的时间，一般来说这个值就是 URI 对应资源被修改的时间，但是类似用 CGI 脚本进行动态数据处理时，该值就有可能会变成数据最终修改时的时间
+
+## 为 Cookie 服务的首部字段
+
+Cookie 工作机制是用户识别及状态管理
+
+| 首部字段名 | 说明                             | 首部类型     |
+| :--------- | :------------------------------- | :----------- |
+| Set-Cookie | 开始状态管理所使用的 Cookie 信息 | 响应首部字段 |
+| Cookie     | 服务器接收到的 Cookie 信息       | 请求首部字段 |
+
+### Set-Cookie
+
+`Set-Cookie: status=enable; expires=Tue, 05 Jul 2011 07:26:31 GMT; path=/; domain=.hackr.jp;`
+
+当服务器准备开始管理客户端的状态时，会在头部设置 Set-Cookie
