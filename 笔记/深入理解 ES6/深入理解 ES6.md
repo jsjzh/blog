@@ -176,7 +176,7 @@ let obj = {
 
 虽然 `Function` 构造器并不常用，但是他也增强了不少能力，允许使用默认参数以及剩余参数
 
-```js
+```javascript
 let arr1 = new Function('first', 'second', 'return first + second')
 let arr2 = new Function('first', 'second = first', 'return first + second')
 let pickFirst = new Function('...args', 'return args[0]')
@@ -186,7 +186,7 @@ let pickFirst = new Function('...args', 'return args[0]')
 
 ES6 给所有函数添加了 name 属性
 
-```js
+```javascript
 function foo() {}
 let bar = function() {}
 console.log(foo.name) // foo
@@ -195,7 +195,7 @@ console.log(bar.name) // bar
 
 > 匿名函数的名称属性在火狐和 Edge 中支持度不好，值为空字符串
 
-```js
+```javascript
 let bar = function foo() {}
 let person = {
   get firstName() {},
@@ -214,7 +214,7 @@ console.log(descriptor.get.name) // get firstName
 - 对象字面量指定的函数其名称就为函数名
 - `person.fristName` 是个 `getter` 函数，因此他的名称为 `get firstName`，`setter` 函数也是相同的情况（`getter` 和 `setter` 函数要用 `Object.getOwnPropertyDescriptor()` 来检索）
 
-```js
+```javascript
 function bar() {}
 let foo = bar.bind()
 console.log(foo.name) // bound bar
@@ -228,7 +228,7 @@ console.log(new Function().name) // anonymous
 
 ### 明确函数的双重用途
 
-```js
+```javascript
 function Foo(bar) {
   this.bar = bar
 }
@@ -251,7 +251,7 @@ JS 为函数提供了两个不同的内部方法 `[[Call]]` `[[Construct]]`
 
 ### 判断函数如何被调用
 
-```js
+```javascript
 function Foo(bar) {
   if (this instanceof Foo) {
     this.bar = bar
@@ -263,7 +263,7 @@ function Foo(bar) {
 
 但是该方法不绝对可靠，只要使用 `apply` 或者 `call` 改变其 `this` 指向就无法正确判断
 
-```js
+```javascript
 let one = new Foo('bar')
 let two = Foo(one, 'two') // 能够正常执行
 ```
@@ -274,7 +274,7 @@ let two = Foo(one, 'two') // 能够正常执行
 
 当函数的 `[[Construct]]` 方法被调用时，`new.target` 会被填入 `new` 运算符的作用目标，该目标通常是新创建的对象实例的构造器，而 `[[Call]]` 方法被调用时，`new.target` 的值会是 `undefined`
 
-```js
+```javascript
 function Foo(bar) {
   // 或者如下也可实现
   // if (new.target === Person) {
@@ -318,7 +318,7 @@ ES6 的非严格模式下，行为有细微不同，块级函数的作用于会�
 
 > 尾调用：调用函数的语句是另一个函数的最后语句
 
-```js
+```javascript
 function foo() {
   return bar() // 尾调用
 }
@@ -332,7 +332,7 @@ ES6 在严格模式下力图为特定尾调用减少调用栈的大小（非严�
 2. 进行尾调用的函数在尾调用返回结果后不能做额外操作
 3. 尾调用的结果作为当前函数的返回值
 
-```js
+```javascript
 'use strict'
 function foo() {
   // 被优化
@@ -367,7 +367,7 @@ function foo() {
 
 尾调用优化大都在递归的时候需要考虑，比如求阶乘
 
-```js
+```javascript
 function factorial(n) {
   if (n <= 1) {
     return 1
@@ -382,7 +382,7 @@ function factorial(n) {
 
 优化如下
 
-```js
+```javascript
 function factorial(n, p = 1) {
   if (n <= 1) {
     return 1 * p
@@ -393,3 +393,104 @@ function factorial(n, p = 1) {
   }
 }
 ```
+
+## 扩展的对象功能
+
+### 对象类别
+
+- 普通对象：拥有 JS 对象所有默认的内部行为
+- 奇异对象：其内部行为在某些方面有别于默认行为
+- 标准对象：在 ES6 中被定义的对象，例如 `Array`、`Date` 等等，标准对象可以是普通的也可以是奇异的
+- 内置对象：在脚本开始运行时由 JS 运行环境提供的对象，所有的标准对象都是内置对象
+
+### 对象字面量语法
+
+```javascript
+let person = {
+  name: 'king',
+  say: function() {
+    console.log('hello')
+  }
+}
+
+let person = {
+  name: 'king',
+  // 可省略 :function
+  say() {
+    console.log('hello')
+  }
+}
+```
+
+如上速记语法称为简写语法，也是在 `person` 中创建了一个方法
+
+> 简写语法创建的对象有一点区别，方法简写能使用 `super`，而非简写的方法则不能使用 `super`
+
+对象字面量内定义 key 也可以使用方括号，表示该属性名需要计算，其结果是一个字符串
+
+```javascript
+let bar = 'Bar'
+let person = {
+  ['one' + bar]: 'one',
+  ['two' + bar]: 'two'
+}
+```
+
+### 新的方法
+
+`Object.is()` 方法
+
+比 `===` 更准确的方法
+
+`===` 怪异点
+
+- 认为 `+0` 和 `-0` 相等，即使这两者在 JS 引擎中有不同的表示
+- 认为 `NaN` !== `NaN`，因此还需要使用 `isNaN()` 函数来检测 `NaN`
+
+```javascript
+console.log(+0 == -0) // true
+console.log(+0 === -0) // true
+console.log(Object.is(+0, -0)) // false
+
+console.log(NaN == NaN) // false
+console.log(NaN === NaN) // false
+console.log(Object.is(NaN, NaN)) // true
+
+console.log(5 == 5) // true
+console.log(5 === 5) // true
+console.log(Object.is(5, 5)) // true
+
+console.log(5 == '5') // true
+console.log(5 === '5') // false
+console.log(Object.is(5, '5')) // false
+```
+
+`Object.assign()` 方法
+
+`Object.assign()` 接受一个接收者和多个供应者，最后返回接收者，当有属性值相同时，会按照顺序依次覆盖
+
+```js
+let foo = Object.assign({}, { type: 'js', name: 'index.js' }, { type: 'css', name: 'index.css' })
+console.log(foo)
+```
+
+操作访问器属性
+
+```js
+let receiver = {}
+let supplier = {
+  get name() {
+    console.log('get name')
+    return function() {
+      return 'king'
+    }
+  }
+}
+// 会输出 get name
+Object.assign(receiver, supplier)
+let descriptor = Object.getOwnPropertyDescriptor(receiver, 'name')
+console.log(descriptor.value) // function() {return "king"}
+console.log(descriptor.get) // undefined
+```
+
+如上，在使用 `Object.assign()` 之后，receiver.name 就作为一个属性存在了，其值就为 supplier.name，相当于在执行 Object.assign 的时候访问了一次 supplier.name
