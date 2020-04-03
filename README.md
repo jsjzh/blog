@@ -50,6 +50,8 @@
 
 [CSDN](https://blog.csdn.net/weixin_41917948)
 
+[github](https://github.com/jsjzh/blog/issues)
+
 ### 语录在这里
 
 [简书](https://www.jianshu.com/u/84ccf14285db)
