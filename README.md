@@ -40,9 +40,7 @@
 
 热爱健身，热爱代码
 
-代码如人生，我甘之如饴
-
-### 代码在这里
+### 技术文章在这里
 
 [掘金](https://juejin.im/user/59b41d21f265da065b6682f7/posts)
 
@@ -52,9 +50,17 @@
 
 [github](https://github.com/jsjzh/blog/issues)
 
-### 语录在这里
+### 所思所想在这里
 
 [简书](https://www.jianshu.com/u/84ccf14285db)
+
+### 学习
+
+[学习](学习.md)
+
+### 计划
+
+[计划](计划.md)
 
 ## 页脚
 

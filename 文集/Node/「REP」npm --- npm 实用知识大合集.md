@@ -272,3 +272,4 @@ ps: 写完之后发现自己了解的也不多，写的挺杂的，如果各位�
 - npm scope
 - lerna 学习
 - @oishi/cli
+- npm version
