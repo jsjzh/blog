@@ -22,7 +22,7 @@
 
 [tesseract-OCR 图像识别 node 插件 node-tesr](https://github.com/jsjzh/blog/issues/7)
 
-[npm 实用知识大合集](https://github.com/jsjzh/blog/issues/9)
+[我就不信这些 npm 指令你全知道](https://github.com/jsjzh/blog/issues/9)
 
 ## 后端
 
