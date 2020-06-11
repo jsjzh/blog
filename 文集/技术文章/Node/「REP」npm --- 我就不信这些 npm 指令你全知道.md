@@ -521,6 +521,20 @@ ps2: 有点标题党，~~发现精心写的文章阅读量比不过面试文章�
   <image src="https://i.loli.net/2019/03/11/5c867208cc9c0.jpg" />
 </div>
 
+## TODO
+
+- npm info xxx version
+  - latest
+- npm info xxx versions
+  - all version
+- npm info xxx
+- npm xxx --json
+- npm ls xxx
+- npm ls xxx -g
+- npm ls xxx --json
+- npm audit
+- npm bin
+
 <!-- ### @oishi/cli 创建命令行
 
 硬广来啦～这个是博主写的一个库，可以快速创建 node 命令行类库，具体可以参见以下文档，另外，在安装过程中命令行也有操作提示，方便的话给个 star 就更好啦～低头致谢。
