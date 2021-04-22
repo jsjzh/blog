@@ -506,20 +506,22 @@ ps2: 有点标题党，~~发现精心写的文章阅读量比不过面试文章�
 
 代码即人生，我甘之如饴。
 
-```
-技术不断在变
-头脑一直在线
-前端路漫漫
-我们下期见
-```
+> 技术不断在变
+> 头脑一直在线
+> 前端路漫漫
+> 我们下期见
+>
+> by --- 裤裆三重奏
 
 我在这里 [gayhub@jsjzh](https://github.com/jsjzh) 欢迎大家来找我玩儿。
 
-欢迎小伙伴们直接加我，拉你进群一起学习前端呀，记得备注一下你是从哪里看到我的文章的哦～
+欢迎小伙伴们直接加我，拉你进群一起搞事情，记得备注一下你是从哪里看到文章的。
 
 <div align="center">
-  <image src="https://i.loli.net/2019/03/11/5c867208cc9c0.jpg" />
+  <image src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/53fb3e16b1f64ebbb8aee73734371257~tplv-k3u1fbpfcp-watermark.image" />
 </div>
+
+> ps: 如果图片失效，可以加我 wechat: kimimi_king
 
 ## TODO
 
