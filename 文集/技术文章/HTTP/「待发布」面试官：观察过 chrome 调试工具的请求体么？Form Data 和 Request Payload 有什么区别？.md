@@ -33,6 +33,10 @@
 
 文章里的示例代码都可以从这个仓库里找到，希望自己亲自尝试的小伙伴可以点击查看详情 [示例地址](https://github.com/jsjzh/tiny-codes/tree/demo/study-post-request)。
 
+```bash
+git clone -b demo/study-post-request https://github.com/jsjzh/tiny-codes.git
+```
+
 ### Request Payload
 
 如果希望看到 `Request Payload`，需要设置请求头部 `Content-Type: application/json`，再将数据经过 `JSON.stringify` 序列化后发送。
