@@ -242,9 +242,9 @@ git clone -b demo/study-post-request https://github.com/jsjzh/tiny-codes.git
 
 代码即人生，我甘之如饴。
 
-> 技术不断在变
-> 头脑一直在线
-> 前端路漫漫
+> 技术不断在变  
+> 头脑一直在线  
+> 前端路漫漫  
 > 我们下期见
 >
 > by --- 裤裆三重奏

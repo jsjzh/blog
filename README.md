@@ -2,7 +2,13 @@
 
 ## 前端
 
-### Vue
+[捕获代码错误的正确姿势（一）](https://github.com/jsjzh/blog/issues/10)
+
+### HTTP
+
+[面试官：观察过 chrome 调试工具的请求体么？Form Data 和 Request Payload 有什么区别？](https://github.com/jsjzh/blog/issues/11)
+
+### VUE
 
 [Vue 技巧系列（一）--- 巧用 Vue.mixin 对状态码进行统一过滤](https://github.com/jsjzh/blog/issues/1)
 
@@ -10,7 +16,7 @@
 
 [element-ui 源码解析，你知道 v-loading 是如何实现的吗？](https://github.com/jsjzh/blog/issues/8)
 
-### webpack
+### WEBPACK
 
 [比较详细的 手工配置 webpack 4.x --- 基础开发环境](https://github.com/jsjzh/blog/issues/3)
 
@@ -18,21 +24,15 @@
 
 [小程序中如何使用类似各大前端框架中的 filter](https://github.com/jsjzh/blog/issues/2)
 
-## Node
+## NODE
 
 [tesseract-OCR 图像识别 node 插件 node-tesr](https://github.com/jsjzh/blog/issues/7)
 
 [我就不信这些 npm 指令你全知道](https://github.com/jsjzh/blog/issues/9)
 
-## 后端
-
 ## 服务端
 
 [docker 应用系列（一）--- 一步步搭建虚拟机 docker 环境 附有 vue-cli + nginx 应用](https://github.com/jsjzh/blog/issues/4)
-
-## 终端
-
-[WINDOWS --- 常用软件整理](https://github.com/jsjzh/blog/issues/5)
 
 ## 个人档案
 
