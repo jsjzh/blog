@@ -48,11 +48,9 @@
 
 [CSDN](https://blog.csdn.net/weixin_41917948)
 
+[博客园](https://www.cnblogs.com/jsjzh)
+
 [github](https://github.com/jsjzh/blog/issues)
-
-### 所思所想在这里
-
-[简书](https://www.jianshu.com/u/84ccf14285db)
 
 ## 页脚
 
