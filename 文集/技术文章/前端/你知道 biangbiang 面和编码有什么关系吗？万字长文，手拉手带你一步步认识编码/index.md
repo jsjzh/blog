@@ -1,7 +1,7 @@
-# 万字长文，手拉手带你一步步认识编码
+# 你知道 biangbiang 面和编码有什么关系吗？万字长文，手拉手带你一步步认识编码
 
 <div align="center">
-  <image src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d45a010de01a413ab7101a4479b1ad5e~tplv-k3u1fbpfcp-zoom-1.image" />
+  <image src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3df6721739914a759b37933a46bee446~tplv-k3u1fbpfcp-watermark.image" />
 </div>
 
 ## 前言
@@ -29,6 +29,8 @@
 kb、mb，这些大家应该就要熟悉多了，获取文件大小的时候都可以看到这些单位。
 
 1mb = 1024kb
+
+![单位换算](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d2033bd5d40240b8b7eac2dd92577715~tplv-k3u1fbpfcp-watermark.image)
 
 ### 前端中的进制转换
 
@@ -63,6 +65,8 @@ parseInt(1111, 2);
 
 可显示字符，第 `0010 0000 ~ 0111 1110`，一共是 95 个，比如 `0011 0000`，表示的意思是 `0`，再比如 `0100 1010`，表示的是大写英文字母 `J`。
 
+![ASCII](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6a4238ba97b44558c2f259475ba23ab~tplv-k3u1fbpfcp-watermark.image)
+
 因为计算机刚开始只在美国使用，那大家相安无事，用的挺好，这些字符按照规定的顺序排排坐所产生的表，就是我们在 C 语言里面学到的 **ASCII 表**。
 
 > ps: 现在教育太疯狂了，认识的小孩小学就在学编程，他现在就知道 ASCII 码了 0.0
@@ -79,11 +83,15 @@ parseInt(1111, 2);
 
 这样我们既可以保证在 ASCII 表中的英文字母不会显示乱码，另外还能组合出八千多个位置来放自己的文字、数学符号、日文假名等，而且，我们甚至把原先在 ASCII 码表里就有的标点符号，又全部编了两个字节长的字符，这就是我们常说的全角字符了，而 127 号以下的符号就称为半角字符。（「,」和「，」看出不同了吗？前者是半角字符，后者是全角字符）
 
+![GB](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d4f9e38a2789467195e185265496f14c~tplv-k3u1fbpfcp-watermark.image)
+
 后来这个方案用着还不错，我们就给它取了个名字 **GB2312**，前面的 GB 意思是国标。
 
 但是我们的汉字实在太多了，八千多个位置还是不够，那我们干脆就不要求低字节是 127 号之后的了，规定只要高字节大于 127，那就代表这是 GBK 编码方案中代表的字符。这个编码方案就称为 **GBK**，GBK 不仅包括了 GB2312 的所有内容，还增加了好多汉字和繁体字。
 
 再后来，少数民族也要用电脑了，要把他们的文字也加进去，于是就再进行扩展，GBK 扩成了 **GB18030**。
+
+有兴趣的同学可以到 [这个网站](https://www.qqxiuzi.cn/bianma/zifuji.php) 查询国标对应字符的码位。
 
 听起来是不是挺完美的？GB18030，几乎可以囊括你能见到的所有中文，但是我们这只解决了中文的编码，无法显示其他国家或者地区的文字，比如，那时候还有一个编码方案叫 Big5，普及与台湾、香港、澳门等繁体中文通行区，倚天中文系统、window 繁体中文等系统的字符集都是以 Big5 为基准。
 
@@ -114,7 +122,7 @@ parseInt(1111, 2);
 
 平面其实可以理解成把相同长度的码位区段取了不同名字。我们常用的字符都在 BMP 平面，看下图，从 `0x0000 ~ 0xffff` 一共有 65536 个码位，其中高代理位和低代理位组合成了辅助平面。
 
-![BMP 平面](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b419a191fc5a4f66aefea57c296e3a5b~tplv-k3u1fbpfcp-watermark.image)
+![BMP](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/461bb1f90a4d443f82f31e61f9739d60~tplv-k3u1fbpfcp-watermark.image)
 
 另外，有兴趣的同学可以到 [这个网站](https://www.unicode.org/charts/) 上查看 UNICODE 所有的字符。
 
@@ -125,6 +133,8 @@ parseInt(1111, 2);
 这时候还有细心的同学可能会问了，你上面的图画的，UNICODE 不是把 ASCII 前一半的字符拿去了吗？而且每个码位对应的字符都一样，为啥就不兼容了？
 
 这个同学就看的更细心了，但是 ASCII 是 1 个字节，而 UNICODE 的 BMP 平面是 2 个字节，同样表达英文字母 `A`，ASCII 是 `01000001`，而 UNICODE 是 `00000000 01000001`，前面多了一堆无用的 `0`。所以，UNICODE 推广受阻还有一个原因就是，存储相同内容的英文文档，空间占用会翻倍，更别说其他文字了。
+
+![UNICODE vs ASCII](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4772999787a4f68957e4258aca87917~tplv-k3u1fbpfcp-watermark.image)
 
 ### 解决兼容和空间问题，聪明的 UTF-8
 
@@ -165,6 +175,8 @@ const binary = code.toString(2); // 1000 1000 1110 0100
 const buffer = new Buffer.from("裤", "utf-8"); // <Buffer e8 a3 a4>
 ```
 
+![UTF-8](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/978855485bd14c94a8567750cb385b5c~tplv-k3u1fbpfcp-watermark.image)
+
 如上我们可以看到，汉字在经过 UTF-8 编码后，变成了 3 个字节，而 GBK 我们使用 2 个字节就可以表示。所以，如果你的网站或者文档只需要在国内传输的，使用 GBK 未尝不可？可以减少不少文档大小。
 
 另外，我们也写一下英文字母经过 UTF-8 编码后会获取到多少字符。
@@ -203,11 +215,11 @@ const buffer = new Buffer.from("A", "utf-8"); // <Buffer 41>
 
 看了这么久文章，同学们该饿了吧，我们说点好吃的，陕西的特产，biangbiang 面。
 
-![biangbiang 面](http://qqpublic.qpic.cn/qq_public/0/0-2560805590-0648CC2C80E2EACE8884836070D0CF39/0)
+![biangbiang 面](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/434cc2cbfe644a37a2d0f231ccdb8ce9~tplv-k3u1fbpfcp-watermark.image)
 
 这个 biang 字，如下图。
 
-![biang 字](https://pic4.zhimg.com/v2-2323fe3588485d420f3d1a6e2d7f9193_b.jpg)
+![biang 字](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/84518da5e2e24253a4230fd526223edc~tplv-k3u1fbpfcp-watermark.image)
 
 biang 在 UNICODE 的码位为 `0x30ede`，你可以打开 [这个网站](https://www.unicode.org/charts/PDF/U30000.pdf)，搜索 `0x30ede` 来查看 biang 字收录在 UNICODE 字符集的位置。虽然这个字在浏览器中还不能够打出来，但是我们可以用这个字做引子，来说说 UTF-16 的编码该如何实现。
 
@@ -241,6 +253,8 @@ parseInt("0x30ede"); // 200414
 // 另外 "\u{30ede}" 这是个 ES6 用来表示辅助平面的字符的方法
 const buffer = new Buffer.from("\u{30ede}", "utf16le"); // <Buffer 83 d8 de de>
 ```
+
+![UTF-16](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1fefe19a2aaf423f8d568a67e24b5df9~tplv-k3u1fbpfcp-watermark.image)
 
 以上，我们就完成了 UTF-16 编码，另外 UNICODE@3.0 也给出了辅助平面字符的转换公式
 
@@ -317,19 +331,19 @@ UTF-8 占用了 9 个字节，我们上面提到的，对于 BMP 平面的汉字
 
 ### 参考文章
 
-[网页编码就是那点事](http://www.qianxingzhem.com/post-1499.html)
-[ASCII 码表](http://www.asciima.com/ascii/12.html)
-[Code Charts](https://www.unicode.org/charts/)
-[Unicode 和 UTF-8 有什么区别？](https://www.zhihu.com/question/23374078)
-[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)
+[网页编码就是那点事](http://www.qianxingzhem.com/post-1499.html)  
+[ASCII 码表](http://www.asciima.com/ascii/12.html)  
+[Code Charts](https://www.unicode.org/charts/)  
+[Unicode 和 UTF-8 有什么区别？](https://www.zhihu.com/question/23374078)  
+[字符编码笔记：ASCII，Unicode 和 UTF-8](http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html)  
 [细说：Unicode, UTF-8, UTF-16, UTF-32, UCS-2, UCS-4](https://www.cnblogs.com/malecrab/p/5300503.html)
 
 ### 建议阅读
 
-[ANSI 是什么编码？](https://www.cnblogs.com/malecrab/p/5300486.html)
-[汉字编码：GB2312, GBK, GB18030, Big5](https://www.cnblogs.com/malecrab/p/5300497.html)
-[细说：Unicode, UTF-8, UTF-16, UTF-32, UCS-2, UCS-4](https://www.cnblogs.com/malecrab/p/5300503.html)
-[UTF-8, UTF-16, UTF-32 & BOM](http://unicode.org/faq/utf_bom.html)
+[ANSI 是什么编码？](https://www.cnblogs.com/malecrab/p/5300486.html)  
+[汉字编码：GB2312, GBK, GB18030, Big5](https://www.cnblogs.com/malecrab/p/5300497.html)  
+[细说：Unicode, UTF-8, UTF-16, UTF-32, UCS-2, UCS-4](https://www.cnblogs.com/malecrab/p/5300503.html)  
+[UTF-8, UTF-16, UTF-32 & BOM](http://unicode.org/faq/utf_bom.html)  
 [JavaScript’s internal character encoding: UCS-2 or UTF-16?](https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae)
 
 ## 系列文章内容预告
