@@ -8,6 +8,8 @@
 
 [面试官：观察过 chrome 调试工具的请求体么？Form Data 和 Request Payload 有什么区别？](https://github.com/jsjzh/blog/issues/11)
 
+[你知道 biangbiang 面和编码有什么关系吗？万字长文，手拉手带你一步步认识编码](https://github.com/jsjzh/blog/issues/12)
+
 ### VUE
 
 [Vue 技巧系列（一）--- 巧用 Vue.mixin 对状态码进行统一过滤](https://github.com/jsjzh/blog/issues/1)
