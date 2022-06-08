@@ -1,4 +1,4 @@
-# 标题
+# 「编辑中」可以用 Context 替代 Redux 吗？
 
 <div align="center">
   <image src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d45a010de01a413ab7101a4479b1ad5e~tplv-k3u1fbpfcp-zoom-1.image" />
@@ -6,13 +6,42 @@
 
 ## 大纲「待删」
 
-书写技术文章的顺序
+- 介绍 Context
+  - Context + useReducer 可否实现 Redux
+  - class 的用法、函数组件的用法
+  <!-- - useMemo 是否有效，并没有效果（这个展开来说有点多，React.memo 和 useMemo 我还没搞懂呢） -->
+- 对比 Redux
+  - Redux 的日常使用方法
+- Context 存在的问题
+- Redux v6 的思考与改变
+- useContextSelector
+  - 如何使用
+  - 不足（引用）
+  - 源码解析
+  - react Context 未来展望
+- Redux Toolkit 该如何使用
+- Demo 的源码地址
 
-- 查阅资料
-- 构思，书写大纲
-- 书写内容
-- 检查错误、美化文章
-- 发布文章
+```jsx
+// 可以计算组件重渲染的次数
+import { useRef } from "react";
+export default function Counts() {
+  const renderCount = useRef(0);
+  return (
+    <div className="mt-3">
+      <p className="dark:text-white">
+        Nothing has changed here but I've now rendered:{" "}
+        <span className="dark:text-green-300 text-grey-900">
+          {renderCount.current++} time(s)
+        </span>
+      </p>
+    </div>
+  );
+}
+```
+
+> 多来点英文的引用
+> 记得把 Demo 里面的组件都改成自己的命名方式
 
 ## 小剧场
 
@@ -35,10 +64,6 @@
 「TODO」
 
 ## 后语
-
-「TODO」
-
-## 参考
 
 「TODO」
 
