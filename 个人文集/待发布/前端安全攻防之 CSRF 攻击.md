@@ -1,4 +1,4 @@
-# Koa 源码解析
+# 前端安全攻防之 CSRF 攻击
 
 <div align="center">
   <image src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d45a010de01a413ab7101a4479b1ad5e~tplv-k3u1fbpfcp-zoom-1.image" />
@@ -63,9 +63,12 @@
 
 我在这里 [gayhub@jsjzh](https://github.com/jsjzh) 欢迎大家来找我玩儿。如果你看完文章之后有所收获，想要夸夸我，[**一个 Star ✨**](https://github.com/jsjzh/blog)就是对我最好的鼓励。
 
-欢迎小伙伴们直接加我 v，拉你进群一起搞事情
+欢迎小伙伴们直接加我 vx，拉你进群一起搞事情，记得备注一下你是从哪里看到文章的。
 
-> kimimi_king  
-> 记得告诉我一下你是从哪里看到我的~
+> ps: 如果图片失效，可以加我 wechat: kimimi_king
+
+<div align="center">
+  <image src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/53fb3e16b1f64ebbb8aee73734371257~tplv-k3u1fbpfcp-watermark.image" />
+</div>
 
 ## 草稿
