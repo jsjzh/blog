@@ -1,13 +1,13 @@
-
 {
   "name": "blog",
   "version": "1.0.0",
-  "repository": "git@github.com:jsjzh/dasouche-mark.git",
+  "repository": "git@github.com:jsjzh/blog.git",
   "author": "jsjzh <kimimi_king@163.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "yarn run git:publish",
+    "start": "yarn run git:pull && yarn run git:publish",
+    "git:pull": "git pull",
     "git:publish": "git add . && git commit -m 'doc: 编辑文档' && git push"
   }
 }
